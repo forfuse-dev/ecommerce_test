@@ -1,5 +1,4 @@
 Django>=3.2,<4.0
 djangorestframework>=3.12,<4.0
-smtplib
 email-validator
-python-dotenv
+python-dotenvcd /Users/apisit.wet/Documents/GitHub/ecommerce_test/python-email-bot/django_project

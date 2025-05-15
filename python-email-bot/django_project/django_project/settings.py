@@ -1,7 +1,11 @@
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",
+ "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "ecommerce_test_db",       # ชื่อฐานข้อมูล
+        "USER": "ecommerce_user",     # ชื่อผู้ใช้
+        "PASSWORD": "securepassword", # รหัสผ่าน
+        "HOST": "localhost",          # หรือ IP ของเซิร์ฟเวอร์ฐานข้อมูล
+        "PORT": "5432",               # พอร์ตของ PostgreSQL (ค่าเริ่มต้นคือ 5432)
     }
 }
 

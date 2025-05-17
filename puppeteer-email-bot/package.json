@@ -1,0 +1,14 @@
+{
+  "name": "puppeteer-email-bot",
+  "version": "1.0.0",
+  "description": "A bot that automates the process of creating and sending emails using Puppeteer.",
+  "main": "src/bot.js",
+  "scripts": {
+    "start": "node src/bot.js"
+  },
+  "dependencies": {
+    "puppeteer": "^20.9.0"
+  },
+  "author": "",
+  "license": "ISC"
+}

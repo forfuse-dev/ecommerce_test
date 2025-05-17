@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <form>
+        <input id="email" type="text" />
+        <input id="password" type="password" />
+        <button id="create-account" type="button"
+            onclick="document.querySelector('.success-message').style.display='block'">Create Account</button>
+        <div class="success-message" style="display:none;">Success!</div>
+    </form>
+</body>
+
+</html>
+
+<script>const filePath = `file:${path.join(__dirname, "../signup.html")}`;</script>

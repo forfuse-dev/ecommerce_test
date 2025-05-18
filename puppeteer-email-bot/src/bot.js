@@ -40,33 +40,33 @@ const get = require("readline-sync");
 
     await page.type(".rFrNMe #lastName", `${lastName}`);
 
-    await page.waitForSelector(".rFrNMe #username");
-    await page.type(".rFrNMe #username", `${userName}`);
+    // await page.waitForSelector(".rFrNMe #username");
+    // await page.type(".rFrNMe #username", `${userName}`);
 
-    await page.waitForSelector("#passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd");
-    await page.type(
-      "#passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd",
-      `${passWord}`
-    );
+    // await page.waitForSelector("#passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd");
+    // await page.type(
+    //   "#passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd",
+    //   `${passWord}`
+    // );
+
+    // await page.waitForSelector(
+    //   "#confirm-passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd"
+    // );
+    // await page.type(
+    //   "#confirm-passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd",
+    //   `${passWord}`
+    // );
+
+    // console.log("[*] Process to Verification by OTP");
 
     await page.waitForSelector(
-      "#confirm-passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd"
-    );
-    await page.type(
-      "#confirm-passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd",
-      `${passWord}`
-    );
-
-    console.log("[*] Process to Verification by OTP");
-
-    await page.waitForSelector(
-      ".qhFLie > #accountDetailsNext > .VfPpkd-dgl2Hf-ppHlrf-sM5MNb > .VfPpkd-LgbsSe > .VfPpkd-RLmnJb"
+      "#collectNameNext > .VfPpkd-dgl2Hf-ppHlrf-sM5MNb > .VfPpkd-LgbsSe > .VfPpkd-RLmnJb"
     );
     await page.click(
-      ".qhFLie > #accountDetailsNext > .VfPpkd-dgl2Hf-ppHlrf-sM5MNb > .VfPpkd-LgbsSe > .VfPpkd-RLmnJb"
+      "#collectNameNext > .VfPpkd-dgl2Hf-ppHlrf-sM5MNb > .VfPpkd-LgbsSe > .VfPpkd-RLmnJb"
     );
 
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(2000);
 
     let number = get.question("[*] Number Phone: ");
     await page.waitForSelector("#phoneNumberId");

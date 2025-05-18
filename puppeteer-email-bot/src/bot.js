@@ -8,12 +8,15 @@ const get = require("readline-sync");
 (async () => {
   try {
     const browser = await puppeteer.launch({
-      headless: "new",
+      headless: false,
       ignoreHTTPSErrors: true,
       slowMo: 0,
       args: ["--window-size=1400,900", "--disable-gpu"],
     });
     const page = await browser.newPage();
+    await page.setUserAgent(
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    );
     let firstName = randomName.first().toString();
     let lastName = randomName.last().toString();
     let numbers = Math.floor(Math.random() * 1000);

@@ -28,7 +28,7 @@ const get = require("readline-sync");
       "https://accounts.google.com/signup/v2/webcreateaccount?hl=en&flowName=GlifWebSignIn&flowEntry=SignUp"
     );
 
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(1000);
     console.log("[*] Google Mail Automation Registration Account");
     console.log("[*] Author: RJD");
     await page.setViewport({ width: 1366, height: 695 });
@@ -49,16 +49,6 @@ const get = require("readline-sync");
     //   `${passWord}`
     // );
 
-    // await page.waitForSelector(
-    //   "#confirm-passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd"
-    // );
-    // await page.type(
-    //   "#confirm-passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd",
-    //   `${passWord}`
-    // );
-
-    // console.log("[*] Process to Verification by OTP");
-
     await page.waitForSelector(
       "#collectNameNext > .VfPpkd-dgl2Hf-ppHlrf-sM5MNb > .VfPpkd-LgbsSe > .VfPpkd-RLmnJb"
     );
@@ -66,18 +56,95 @@ const get = require("readline-sync");
       "#collectNameNext > .VfPpkd-dgl2Hf-ppHlrf-sM5MNb > .VfPpkd-LgbsSe > .VfPpkd-RLmnJb"
     );
 
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1000);
 
-    let number = get.question("[*] Number Phone: ");
-    await page.waitForSelector("#phoneNumberId");
-    const input = await page.$("#phoneNumberId");
-    await input.click({ clickCount: 3 });
-    await page.keyboard.press("Backspace");
-    await page.type("#phoneNumberId", `${number}`);
+    await page.click(".Qncw2e #month");
+    await page.select(".Qncw2e #month", "2");
+    await page.waitForSelector(".Qncw2e #month");
+    await page.click(".Qncw2e #month");
 
-    await page.click(
-      "#view_container > div > div > div.pwWryf.bxPAYd > div > div.zQJV3 > div > div.qhFLie > div > div > button > div.VfPpkd-RLmnJb"
+    await page.waitForSelector("#day");
+    await page.type("#day", "22");
+
+    await page.waitForSelector(".rFrNMe #year");
+    await page.type(".rFrNMe #year", "1992");
+
+    await page.waitForSelector(".Qncw2e #gender");
+    await page.click(".Qncw2e #gender");
+
+    await page.select(".Qncw2e #gender", "1");
+
+    await page.waitForSelector(".Qncw2e #gender");
+    await page.click(".Qncw2e #gender");
+
+    // Wait for the "Next" button and click it (the one with text "Next")
+    await page.waitForSelector('button[jsname="LgbsSe"] span.VfPpkd-vQzf8d');
+    const nextButtons = await page.$$(
+      'button[jsname="LgbsSe"] span.VfPpkd-vQzf8d'
     );
+    for (const btn of nextButtons) {
+      const text = await btn.evaluate((el) => el.innerText);
+      if (text && text.trim() === "Next") {
+        // Click the parent button element
+        const parentBtn = await btn.evaluateHandle((el) =>
+          el.closest("button")
+        );
+        await parentBtn.click();
+        break;
+      }
+    }
+
+    await page.waitForTimeout(2000);
+    // Click the first radio option and save the email value
+    await page.waitForSelector('[role="radiogroup"] [role="radio"]');
+    const radios = await page.$$('[role="radiogroup"] [role="radio"]');
+    if (radios.length > 0) {
+      await radios[0].click();
+      const email = await radios[0].evaluate((el) => {
+        const labelledby = el.getAttribute("aria-labelledby");
+        if (!labelledby) return "";
+        const label = document.getElementById(labelledby);
+        return label ? label.textContent.trim() : "";
+      });
+      console.log("[*] Selected email:", email);
+    }
+
+    // Wait for the "Next" button and click it (the one with text "Next")
+    await page.waitForSelector('button[jsname="LgbsSe"] span.VfPpkd-vQzf8d');
+    const nextButtons2 = await page.$$(
+      'button[jsname="LgbsSe"] span.VfPpkd-vQzf8d'
+    );
+    for (const btn of nextButtons2) {
+      const text = await btn.evaluate((el) => el.innerText);
+      if (text && text.trim() === "Next") {
+        // Click the parent button element
+        const parentBtn = await btn.evaluateHandle((el) =>
+          el.closest("button")
+        );
+        await parentBtn.click();
+        break;
+      }
+    }
+
+    // Password
+    await page.waitForSelector('#passwd input[name="Passwd"]');
+    await page.type('#passwd input[name="Passwd"]', passWord);
+
+    await page.waitForSelector('#confirm-passwd input[name="PasswdAgain"]');
+    await page.type('#confirm-passwd input[name="PasswdAgain"]', passWord);
+
+    console.log("[*] Process to Verification by OTP");
+
+    // let number = get.question("[*] Number Phone: ");
+    // await page.waitForSelector("#phoneNumberId");
+    // const input = await page.$("#phoneNumberId");
+    // await input.click({ clickCount: 3 });
+    // await page.keyboard.press("Backspace");
+    // await page.type("#phoneNumberId", `${number}`);
+
+    // await page.click(
+    //   "#view_container > div > div > div.pwWryf.bxPAYd > div > div.zQJV3 > div > div.qhFLie > div > div > button > div.VfPpkd-RLmnJb"
+    // );
 
     await page
       .waitForSelector("#code")
@@ -95,33 +162,6 @@ const get = require("readline-sync");
             .waitForSelector(".F8Czgd #month")
             .then(() => {
               (async () => {
-                await page.click(".F8Czgd #month");
-                await page.select(".F8Czgd #month", "2");
-                await page.waitForSelector(".F8Czgd #month");
-                await page.click(".F8Czgd #month");
-
-                await page.waitForSelector("#day");
-                await page.type("#day", "22");
-
-                await page.waitForSelector(".rFrNMe #year");
-                await page.type(".rFrNMe #year", "1992");
-
-                await page.waitForSelector(".ZyruUe #gender");
-                await page.click(".ZyruUe #gender");
-
-                await page.select(".ZyruUe #gender", "1");
-
-                await page.waitForSelector(".ZyruUe #gender");
-                await page.click(".ZyruUe #gender");
-
-                await page.waitForSelector(
-                  ".qhFLie > .FliLIb > .VfPpkd-dgl2Hf-ppHlrf-sM5MNb > .VfPpkd-LgbsSe > .VfPpkd-RLmnJb"
-                );
-                await page.click(
-                  ".qhFLie > .FliLIb > .VfPpkd-dgl2Hf-ppHlrf-sM5MNb > .VfPpkd-LgbsSe > .VfPpkd-RLmnJb"
-                );
-
-                await page.waitForTimeout(5000);
                 await page.waitForSelector(
                   "#view_container > div > div > div.pwWryf.bxPAYd > div > div.zQJV3 > div.dG5hZc > div.daaWTb > div > div > button > div.VfPpkd-RLmnJb"
                 );

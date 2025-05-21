@@ -23,7 +23,7 @@ const get = require("readline-sync");
     let userName =
       randomName.first().toString() + randomName.last().toString() + numbers;
     const email = "gmail.com";
-    const passWord = "RJDxSGB123ok";
+    const passWord = Math.random().toString(36).slice(-10) + "ok";
     await page.goto(
       "https://accounts.google.com/signup/v2/webcreateaccount?hl=en&flowName=GlifWebSignIn&flowEntry=SignUp"
     );
@@ -94,7 +94,7 @@ const get = require("readline-sync");
       }
     }
 
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1000);
     // Click the first radio option and save the email value
     await page.waitForSelector('[role="radiogroup"] [role="radio"]');
     const radios = await page.$$('[role="radiogroup"] [role="radio"]');
@@ -126,14 +126,36 @@ const get = require("readline-sync");
       }
     }
 
+    await page.waitForTimeout(1000);
+    console.log("passWord", passWord);
     // Password
-    await page.waitForSelector('#passwd input[name="Passwd"]');
-    await page.type('#passwd input[name="Passwd"]', passWord);
+    await page.waitForSelector('#passwd .whsOnd[name="Passwd"]');
+    await page.type('#passwd .whsOnd[name="Passwd"]', `${passWord}`);
 
-    await page.waitForSelector('#confirm-passwd input[name="PasswdAgain"]');
-    await page.type('#confirm-passwd input[name="PasswdAgain"]', passWord);
+    await page.waitForSelector('#confirm-passwd .whsOnd[name="PasswdAgain"]');
+    await page.type(
+      '#confirm-passwd .whsOnd[name="PasswdAgain"]',
+      `${passWord}`
+    );
 
-    console.log("[*] Process to Verification by OTP");
+    // Wait for the "Next" button and click it (the one with text "Next")
+    await page.waitForSelector('button[jsname="LgbsSe"] span.VfPpkd-vQzf8d');
+    const nextButtons3 = await page.$$(
+      'button[jsname="LgbsSe"] span.VfPpkd-vQzf8d'
+    );
+    for (const btn of nextButtons3) {
+      const text = await btn.evaluate((el) => el.innerText);
+      if (text && text.trim() === "Next") {
+        // Click the parent button element
+        const parentBtn = await btn.evaluateHandle((el) =>
+          el.closest("button")
+        );
+        await parentBtn.click();
+        break;
+      }
+    }
+
+    // console.log("[*] Process to Verification by OTP");
 
     // let number = get.question("[*] Number Phone: ");
     // await page.waitForSelector("#phoneNumberId");

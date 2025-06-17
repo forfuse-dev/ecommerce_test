@@ -40,15 +40,6 @@ const get = require("readline-sync");
 
     await page.type(".rFrNMe #lastName", `${lastName}`);
 
-    // await page.waitForSelector(".rFrNMe #username");
-    // await page.type(".rFrNMe #username", `${userName}`);
-
-    // await page.waitForSelector("#passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd");
-    // await page.type(
-    //   "#passwd > .aCsJod > .aXBtI > .Xb9hP > .whsOnd",
-    //   `${passWord}`
-    // );
-
     await page.waitForSelector(
       "#collectNameNext > .VfPpkd-dgl2Hf-ppHlrf-sM5MNb > .VfPpkd-LgbsSe > .VfPpkd-RLmnJb"
     );
@@ -58,25 +49,25 @@ const get = require("readline-sync");
 
     await page.waitForTimeout(1000);
 
-    await page.click(".Qncw2e #month");
-    await page.select(".Qncw2e #month", "2");
-    await page.waitForSelector(".Qncw2e #month");
-    await page.click(".Qncw2e #month");
+    await page.waitForSelector("#month");
+    await page.click("#month");
+
+    await page.waitForSelector('li[data-value="4"]');
+    await page.click('li[data-value="4"]');
 
     await page.waitForSelector("#day");
-    await page.type("#day", "22");
+    await page.type("#day", "24");
 
-    await page.waitForSelector(".rFrNMe #year");
-    await page.type(".rFrNMe #year", "1992");
+    await page.waitForSelector("#year");
+    await page.type("#year", "1999");
 
-    await page.waitForSelector(".Qncw2e #gender");
-    await page.click(".Qncw2e #gender");
+    await page.waitForSelector("#gender");
+    await page.click("#gender");
 
-    await page.select(".Qncw2e #gender", "1");
+    await page.waitForSelector('li[data-value="3"]');
+    await page.click('li[data-value="3"]');
 
-    await page.waitForSelector(".Qncw2e #gender");
-    await page.click(".Qncw2e #gender");
-
+    // ...existing code...
     // Wait for the "Next" button and click it (the one with text "Next")
     await page.waitForSelector('button[jsname="LgbsSe"] span.VfPpkd-vQzf8d');
     const nextButtons = await page.$$(
